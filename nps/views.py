@@ -14,7 +14,11 @@ def submit_answer(request):
         form = AnswerForm(request.POST)
         if form.is_valid():
             # TODO save in database
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/nps/thanks/')
     else:
         form = AnswerForm()
     return render(request, 'nps/nps_form.html', {'form': form})
+
+
+def thanks(request):
+    return HttpResponse("thank you for answering!")
