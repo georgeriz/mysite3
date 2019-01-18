@@ -3,6 +3,8 @@ from django.shortcuts import render
 
 from .models import Answer, AnswerForm
 
+from datetime import datetime
+
 
 def index(request):
     answer_list = Answer.objects.all()
@@ -13,7 +15,10 @@ def submit_answer(request):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
-            # TODO save in database
+            answer_text = form.cleaned_data['answer_text']
+            feedback_text = form.cleaned_data['feedback_text']
+            answer_date = datetime.now()
+            Answer(answer_text=answer_text, feedback_text=feedback_text, answer_date=answer_date).save()
             return HttpResponseRedirect('/nps/thanks/')
     else:
         form = AnswerForm()
