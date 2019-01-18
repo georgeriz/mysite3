@@ -4,7 +4,7 @@ from django.forms import ModelForm
 
 class Answer(models.Model):
     answer_text = models.CharField(max_length=2)
-    user_id = models.IntegerField()
+    user_text = models.CharField(max_length=200)
     feedback_text = models.CharField(max_length=200)
     answer_date = models.DateField()
 
