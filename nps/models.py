@@ -16,3 +16,11 @@ class AnswerForm(ModelForm):
     class Meta:
         model = Answer
         fields = ['answer_text', 'feedback_text']
+
+
+class QnA(models.Model):
+    question_text = models.CharField(max_length=200)
+    answer_text = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.question_text
