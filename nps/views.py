@@ -8,6 +8,7 @@ from datetime import datetime
 
 def index(request):
     answer_list = Answer.objects.all()
+    # TODO return as json for use as API
     return HttpResponse('<br/>'.join([str(a) for a in answer_list]))
 
 
