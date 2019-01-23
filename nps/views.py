@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Answer, AnswerForm
@@ -8,8 +9,13 @@ from datetime import datetime
 
 def index(request):
     answer_list = Answer.objects.all()
-    # TODO return as json for use as API
     return HttpResponse('<br/>'.join([str(a) for a in answer_list]))
+
+
+def json_api(request):
+    answer_list = Answer.objects.all()
+    json_object = {'scores': [{'answer': a.answer_text, 'feedback': a.feedback_text} for a in answer_list]}
+    return JsonResponse(json_object)
 
 
 def submit_answer(request):

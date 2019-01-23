@@ -6,5 +6,6 @@ app_name = 'nps'
 urlpatterns = [
     path('', views.index, name='index'),
     path('submit/', views.submit_answer, name='submit_answer'),
-    path('thanks/', views.thanks, name='thanks')
+    path('thanks/', views.thanks, name='thanks'),
+    path('api/', views.json_api, name='api')
 ]
