@@ -3,14 +3,24 @@ from django.forms import ModelForm
 
 
 class Answer(models.Model):
-    # TODO answer is a choice
-    answer_text = models.CharField(max_length=2)
+    choices = [
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6),
+        (7, 7),
+        (8, 8),
+        (9, 9),
+        (10, 10)]
+    answer_text = models.IntegerField(choices=choices)
     user_text = models.CharField(max_length=200)
     feedback_text = models.CharField(max_length=200)
     answer_date = models.DateField()
 
     def __str__(self):
-        return self.answer_text + ', ' + self.feedback_text
+        return str(self.answer_text) + ', ' + self.feedback_text
 
 
 class AnswerForm(ModelForm):
