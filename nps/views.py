@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from .models import Answer, AnswerForm, ExtraQuestion
+from .models import Answer, AnswerForm, ExtraQuestion, ExtraAnswer
 
 from datetime import datetime
 
@@ -21,11 +21,15 @@ def json_api(request):
 def submit_answer(request):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
+        extra_question_list = request.POST.getlist('extra-question')
+        extra_answer_list = [request.POST['extra-answer-{}'.format(q)] for q in extra_question_list]
         if form.is_valid():
             answer_text = form.cleaned_data['answer_text']
             feedback_text = form.cleaned_data['feedback_text']
             answer_date = datetime.now()
-            Answer(answer_text=answer_text, feedback_text=feedback_text, answer_date=answer_date).save()
+            answer = Answer(answer_text=answer_text, feedback_text=feedback_text, answer_date=answer_date)
+            eq_list = [ExtraQuestion.objects.filter(id=id) for id in extra_question_list]
+            ea_list = [ExtraAnswer(extra_answer_text=t, answer=answer, extra_question=eq_list[i][0]) for i,t in enumerate(extra_answer_list)]
             return HttpResponseRedirect('/nps/thanks/')
     else:
         form = AnswerForm()

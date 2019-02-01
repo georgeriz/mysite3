@@ -12,6 +12,8 @@
     <p>Extra Questions</p>
     {% for eq in eq_list %}
         <li>{{ eq.extra_question_text }}</li>
+        <input type="hidden" name="extra-question" value="{{ eq.id }}">
+        <input type="text" name="extra-answer-{{ eq.id}}">
     {% endfor %}
     <input type="submit" value="Submit">
 </form>
