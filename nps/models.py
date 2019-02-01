@@ -29,10 +29,15 @@ class AnswerForm(ModelForm):
         fields = ['answer_text', 'feedback_text']
 
 
-class QnA(models.Model):
-    question_text = models.CharField(max_length=200)
-    # TODO the answer may not be text
-    answer_text = models.CharField(max_length=200)
+class ExtraQuestion(models.Model):
+    extra_question_text = models.CharField(max_length=200)
+    visibility = models.BooleanField()
 
     def __str__(self):
-        return self.question_text
+        return self.extra_question_text
+
+
+class ExtraAnswer(models.Model):
+    extra_question_id = models.ForeignKey(ExtraQuestion, on_delete=models.CASCADE)
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    extra_answer_text = models.CharField(max_length=200)
