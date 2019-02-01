@@ -9,6 +9,10 @@
 <form action="{% url 'nps:submit_answer' %}" method="post">
     {% csrf_token %}
     {{ form }}
+    <p>Extra Questions</p>
+    {% for eq in eq_list %}
+        <li>{{ eq.extra_question_text }}</li>
+    {% endfor %}
     <input type="submit" value="Submit">
 </form>
 </body>
