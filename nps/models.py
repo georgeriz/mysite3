@@ -8,12 +8,7 @@ class Answer(models.Model):
         (2, 2),
         (3, 3),
         (4, 4),
-        (5, 5),
-        (6, 6),
-        (7, 7),
-        (8, 8),
-        (9, 9),
-        (10, 10)]
+        (5, 5)]
     answer_text = models.IntegerField(choices=choices)
     user_text = models.CharField(max_length=200)
     feedback_text = models.CharField(max_length=200)
