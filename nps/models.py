@@ -36,3 +36,9 @@ class ExtraAnswer(models.Model):
     extra_question = models.ForeignKey(ExtraQuestion, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     extra_answer_text = models.CharField(max_length=200)
+
+
+class ExtraAnswerForm(ModelForm):
+    class Meta:
+        model = ExtraAnswer
+        fields = '__all__'

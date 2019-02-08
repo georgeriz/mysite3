@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from .models import Answer, AnswerForm, ExtraQuestion, ExtraAnswer
+from .models import Answer, AnswerForm, ExtraQuestion, ExtraAnswer, ExtraAnswerForm
 
 from datetime import datetime
 
@@ -36,7 +36,8 @@ def submit_answer(request):
     else:
         form = AnswerForm()
         eq_list = ExtraQuestion.objects.filter(visibility=True)
-    return render(request, 'nps/nps_form.html', {'form': form, 'eq_list': eq_list})
+        ea_form = ExtraAnswerForm()
+    return render(request, 'nps/nps_form.html', {'form': form, 'eq_list': eq_list, 'ea_form':ea_form})
 
 
 def thanks(request):
