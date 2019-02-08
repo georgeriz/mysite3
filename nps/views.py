@@ -28,8 +28,10 @@ def submit_answer(request):
             feedback_text = form.cleaned_data['feedback_text']
             answer_date = datetime.now()
             answer = Answer(answer_text=answer_text, feedback_text=feedback_text, answer_date=answer_date)
+            answer.save()
             eq_list = [ExtraQuestion.objects.filter(id=id) for id in extra_question_list]
             ea_list = [ExtraAnswer(extra_answer_text=t, answer=answer, extra_question=eq_list[i][0]) for i,t in enumerate(extra_answer_list)]
+            map(lambda x: x.save(), ea_list)
             return HttpResponseRedirect('/nps/thanks/')
     else:
         form = AnswerForm()
